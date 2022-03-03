@@ -228,12 +228,12 @@ class TestGroupView:
         )
 
         assert re.search(
-            r'<\s*p(\s+class=".+"|\s*)>\s*' + post_with_group.text + r'\s*<\s*\/p\s*>',
+            r'<\s*p(\s+class=".+"|\s*)>\s*' + post_with_group.text + r'\s*<\s*/p\s*>',
             html
         ), 'Отредактируйте HTML-шаблон, не найден текст поста `<p>{{ текст_поста }}</p>`'
 
         assert re.search(
-            r'(д|Д)ата публикации:\s*',
+            r'(д|Дата публикации:)\s*',
             html
         ), (
             'Отредактируйте HTML-шаблон, не найдена дата публикации '
@@ -241,7 +241,7 @@ class TestGroupView:
         )
 
         assert re.search(
-            r'(а|А)втор\:\s' + post_with_group.author.get_full_name(),
+            r'(а|Автор:)\s' + post_with_group.author.get_full_name(),
             html,
         ), (
             'Отредактируйте HTML-шаблон, не найден автор публикации '
@@ -250,5 +250,5 @@ class TestGroupView:
 
         base_template = get_template('base.html').template.source
         assert re.search(
-            r'{\%\sload static\s\%}', base_template
+            r'{%\sload static\s%}', base_template
         ), 'Загрузите статику в base.html шаблоне'
